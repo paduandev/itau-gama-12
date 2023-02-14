@@ -19,6 +19,14 @@ public class Animal {
         this.proprietario = proprietario;
     }
 
+    // public void trocaTelefoneProprietario(String novoTelefone) {
+    //     proprietario.setTelefone(novoTelefone);
+    // }
+
+    public Proprietario getProprietario() {
+        return proprietario;
+    }
+
     public String getDados() {
         return "Animal: " + nome + " raça: " + raca + " nascimento: " + anoNascimento + "\n" + proprietario.getDados();
     }

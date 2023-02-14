@@ -11,4 +11,8 @@ public class Proprietario {
     public String getDados() {
         return nome + ", " + telefone;
     }
+
+    public void setTelefone(String novoTelefone) {
+        telefone = novoTelefone;
+    }
 }
