@@ -1,39 +1,51 @@
 package exercicios.exercicio01;
 
 public class Robo {
-    private final int MAX_DEFAULT = 1000;
     private int posX, posY;
-    private int max;
+    private Area area;
 
-    public Robo(int max) {
-        if(max > 0) {
-            this.max = max;
-        } else {
-            this.max = MAX_DEFAULT;
-        }
+    public Robo(Area area) {
+        this.area = area;
     }
 
-    public void moverNorte() {
-        if(posY < max) {
+    private void moverNorte() {
+        if(posY < area.getLimiteY()) {
             posY++;
         }
     }
 
-    public void moverSul() {
-        if(posY > -max) {
+    private void moverSul() {
+        if(posY > -area.getLimiteY()) {
             posY--;
         }
     }
     
-    public void moverLeste() {
-        if(posX < max) {
+    private void moverLeste() {
+        if(posX < area.getLimiteX()) {
             posX++;
         }
     }
     
-    public void moverOeste() {
-        if(posX > -max) {
+    private void moverOeste() {
+        if(posX > -area.getLimiteX()) {
             posX--;
+        }
+    }
+
+    public void navegar(Direcao direcao) {
+        switch (direcao) {
+            case NORTE:
+                moverNorte();
+                break;
+            case SUL:
+                moverSul();
+                break;
+            case LESTE:
+                moverLeste();
+                break;
+            case OESTE:
+                moverOeste();
+                break;
         }
     }
 
