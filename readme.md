@@ -20,3 +20,9 @@ https://code.visualstudio.com/
 > Site explicando Git: https://www.atlassian.com/br/git/tutorials/setting-up-a-repository
 
 > pdf resumo Git: https://training.github.com/downloads/pt_BR/github-git-cheat-sheet.pdf
+
+### Treinar lógica Programação
+>BeeCrowd:  https://www.beecrowd.com.br/judge/pt/login
+
+> Exercism Java: https://exercism.org/tracks/java/exercises
+
