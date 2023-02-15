@@ -16,3 +16,5 @@ https://code.visualstudio.com/
 
 ### Git
 > Treinar iterativamente: https://learngitbranching.js.org/
+> Site explicando Git: https://www.atlassian.com/br/git/tutorials/setting-up-a-repository
+> pdf resumo Git: https://training.github.com/downloads/pt_BR/github-git-cheat-sheet.pdf
