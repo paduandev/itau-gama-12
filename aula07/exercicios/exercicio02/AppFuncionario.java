@@ -14,14 +14,15 @@ public class AppFuncionario {
 
         // buffer de teclado
 
-        while (opcaoMenu != 7) {
+        while (opcaoMenu != 8) {
             System.out.println("1- Cadastrar novo funcionário");
             System.out.println("2- Cadastrar novo Gerente");
             System.out.println("3- Listar funcionários");
             System.out.println("4- Procurar um funcionário");
             System.out.println("5- Procurar um funcionário pelo nome");
             System.out.println("6- Calcular salários");
-            System.out.println("7- Finalizar");
+            System.out.println("7- Apagar funcionário/gerente");
+            System.out.println("8- Finalizar");
             opcaoMenu = Integer.parseInt(entrada.nextLine()); // parse transforma o texto em número int
 
             switch (opcaoMenu) {
@@ -74,7 +75,14 @@ public class AppFuncionario {
                     }
                     break;
                 case 5:
-
+                    System.out.println("Digite o nome do funcionário/gerente:");
+                    nomeFuncionario = entrada.nextLine();
+                    for (int i = 0; i < qtdeFuncionarios; i++) {
+                        if(funcionarios[i].getNome().equalsIgnoreCase(nomeFuncionario)) {
+                            System.out.println(funcionarios[i]);
+                            break;
+                        }
+                    }
                     break;
                 case 6:
                     for (int i = 0; i < qtdeFuncionarios; i++) {
@@ -82,6 +90,9 @@ public class AppFuncionario {
                     }
                     break;
                 case 7:
+                    System.out.println("Apagar.");
+                    break;
+                case 8:
                     System.out.println("Final do programa.");
                     break;
 
