@@ -53,7 +53,8 @@ public class AppFuncionario {
                         System.out.println("Número de funcionários:");
                         numeroDeFuncionarios = Integer.parseInt(entrada.nextLine());
 
-                        Gerente novoGerente = new Gerente(nomeFuncionario, valorPorHora, numeroHoras, numeroDeFuncionarios);
+                        Gerente novoGerente = new Gerente(nomeFuncionario, valorPorHora, numeroHoras,
+                                numeroDeFuncionarios);
                         funcionarios[qtdeFuncionarios] = novoGerente;
                         qtdeFuncionarios++;
                     } else {
@@ -62,7 +63,9 @@ public class AppFuncionario {
                     break;
                 case 3:
                     for (int i = 0; i < qtdeFuncionarios; i++) {
-                        System.out.println(funcionarios[i]);
+                        if(funcionarios[i] != null) {
+                            System.out.println(i + " - " + funcionarios[i]);
+                        }
                     }
                     break;
                 case 4:
@@ -78,7 +81,7 @@ public class AppFuncionario {
                     System.out.println("Digite o nome do funcionário/gerente:");
                     nomeFuncionario = entrada.nextLine();
                     for (int i = 0; i < qtdeFuncionarios; i++) {
-                        if(funcionarios[i].getNome().equalsIgnoreCase(nomeFuncionario)) {
+                        if (funcionarios[i].getNome().equalsIgnoreCase(nomeFuncionario)) {
                             System.out.println(funcionarios[i]);
                             break;
                         }
@@ -90,7 +93,15 @@ public class AppFuncionario {
                     }
                     break;
                 case 7:
-                    System.out.println("Apagar.");
+                    System.out.println("Digite o número do funcionário: ");
+                    numeroDoFuncionario = Integer.parseInt(entrada.nextLine());
+                    if (numeroDoFuncionario >= 0 && numeroDoFuncionario < qtdeFuncionarios) {
+                        System.out.println("Removendo...");
+                        System.out.println(funcionarios[numeroDoFuncionario]);
+                        funcionarios[numeroDoFuncionario] = null;
+                    } else {
+                        System.out.println("Número inválido");
+                    }
                     break;
                 case 8:
                     System.out.println("Final do programa.");
