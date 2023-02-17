@@ -39,9 +39,18 @@ public class Exemplo04 {
             System.out.println("Não apagou");
         }
         
+        System.out.println("Com o for i:");
         // percorre todo o ArrayList do início ao final
         for (int i = 0; i < listaPalavras.size(); i++) {
             System.out.print(listaPalavras.get(i) + " ");
+        }
+
+        System.out.println("\nCom o foreach:");
+        // for - foreach - para cada elemento
+        // Para cada 'palavra' da 'ListaPalvras'
+        // cada vez que passar pelo 'for', preenche a variável 'palavra' com um elemento da lista
+        for (String palavra : listaPalavras) {
+            System.out.print(palavra + " ");
         }
 
     }
