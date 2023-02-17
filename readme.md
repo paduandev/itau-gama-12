@@ -14,6 +14,9 @@ JDK: https://download.oracle.com/java/17/latest/jdk-17_windows-x64_bin.exe
 > VS Code
 https://code.visualstudio.com/
 
+### Atalhos úteis VSCode
+https://gist.github.com/EmersonPaduan/6e23ae9be6d1c0213774957ca61fdf82
+
 ### Git
 > Treinar iterativamente: https://learngitbranching.js.org/
 
