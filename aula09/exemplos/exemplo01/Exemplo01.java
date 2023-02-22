@@ -22,7 +22,8 @@ public class Exemplo01 {
         // removendo todos os elementos da fila
         // enquanto a fila não (!) estiver vazia ...
         while(!fila.isEmpty()) {
-            System.out.println(fila.remove());
+            System.out.println("Removendo: " + fila.remove());
+            System.out.println(fila);
         }
 
     }
