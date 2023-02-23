@@ -6,13 +6,17 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Exercicio02 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         File file = new File("exercicios/exercicio02/config.txt");
 
-        if(file.exists()) {
-            exibirConfig(file);
-        } else {
-            gravarConfig(file);
+        try {
+            if (file.exists()) {
+                exibirConfig(file);
+            } else {
+                gravarConfig(file);
+            }
+        } catch (IOException e) {
+            System.out.println("Erro no arquivo de configuração");
         }
     }
 
@@ -21,7 +25,7 @@ public class Exercicio02 {
         Scanner input = new Scanner(file);
 
         System.out.println("Cobnfigurações atuais:");
-        while (input.hasNext()) { 
+        while (input.hasNext()) {
             String linha = input.nextLine();
             System.out.println(linha);
         }
