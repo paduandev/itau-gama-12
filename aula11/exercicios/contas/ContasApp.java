@@ -68,7 +68,7 @@ public class ContasApp {
                         // Verifique se esta conta tem o número que estamos procurando
                         if (conta.getNumero() == numeroConta) {
                             // tenta fazer o depósito
-                            if(conta.depositar(valor)){ // se o depósito foi feito
+                            if (conta.depositar(valor)) { // se o depósito foi feito
                                 System.out.println("Deposíto realizado");
                                 System.out.println(conta);
                             } else { // se deu erro no depósito
@@ -76,10 +76,27 @@ public class ContasApp {
                             }
                             break; // quando achou, interrompe o for
                         }
-                    }    
+                    }
                     break;
                 case 6:
-
+                    System.out.println("Informe o número da conta");
+                    numeroConta = scanner.nextInt();
+                    System.out.println("Qual o valor do saque: ");
+                    valor = scanner.nextDouble();
+                    // Para cada conta da ListaDeContas
+                    for (Conta conta : listaDeContas) {
+                        // Verifique se esta conta tem o número que estamos procurando
+                        if (conta.getNumero() == numeroConta) {
+                            // tenta fazer o depósito
+                            if (conta.sacar(valor)) { // se o saque foi feito
+                                System.out.println("Saque realizado");
+                                System.out.println(conta);
+                            } else { // se deu erro no saque
+                                System.out.println("Falha ao sacar.");
+                            }
+                            break; // quando achou, interrompe o for
+                        }
+                    }
                     break;
                 case 7:
                     break;
