@@ -1,6 +1,6 @@
 package exercicios.contas;
 
-public class Conta {
+public abstract class Conta {
     private int numero;
     private double saldo;
 
@@ -30,7 +30,7 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "Conta [numero=" + numero + ", saldo=" + saldo + "]";
+        return "[numero=" + numero + ", saldo=" + saldo + "]";
     }
 
 }

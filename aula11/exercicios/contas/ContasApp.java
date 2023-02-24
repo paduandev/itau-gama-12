@@ -2,7 +2,7 @@ package exercicios.contas;
 
 public class ContasApp {
     public static void main(String[] args) {
-        Conta c1 = new Conta(123);
+        ContaCorrente c1 = new ContaCorrente(123);
 
         System.out.println(c1);
         
@@ -10,6 +10,9 @@ public class ContasApp {
         System.out.println(c1);
         
         c1.sacar(50);
+        System.out.println(c1);
+
+        c1.sacar(500);
         System.out.println(c1);
         
         c1.sacar(-50);
