@@ -1,4 +1,4 @@
-package exercicios.contas;
+package exercicios.contas.modelo;
 
 public class ContaPoupanca extends Conta {
     private static double taxa_saque = 0.01;

@@ -1,4 +1,4 @@
-package exercicios.contas;
+package exercicios.contas.modelo;
 
 public abstract class Conta {
     private int numero;

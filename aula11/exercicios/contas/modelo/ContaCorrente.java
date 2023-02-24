@@ -1,4 +1,4 @@
-package exercicios.contas;
+package exercicios.contas.modelo;
 
 public class ContaCorrente extends Conta {
     // static pois é uma mesma constante para todos os objetos. É uma constante da classe
