@@ -13,17 +13,18 @@ public class ContaCorrente extends Conta {
     // ContaCorrente é diferente da regra da classe Conta
     // Aqui só pode fazer o saque se houver saldo na conta
     @Override
-    public void sacar(double valor) {
+    public boolean sacar(double valor) {
         // verifica se valor do saque é menor ou igual ao saldo da conta
         // usamos o método GetSaldo pois não temos acesso direto ao saldo por ser privado
         if(valor <= getSaldo()) {
-            super.sacar(valor);
+            return super.sacar(valor);
         }
+        return false; // quando não tem saldo suficiente
     }
 
     @Override
-    public void depositar(double valor) {
-        super.depositar(valor - TAXA_DEPOSITO);
+    public boolean depositar(double valor) {
+        return super.depositar(valor - TAXA_DEPOSITO);
     }
 
     @Override

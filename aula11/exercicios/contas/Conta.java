@@ -16,16 +16,20 @@ public abstract class Conta {
         return saldo;
     }
     
-    public void depositar(double valor) {
+    public boolean depositar(double valor) {
         if(valor > 0) {
             saldo += valor; // saldo = saldo + valor;
-        }
+            return true;
+        } 
+        return false;
     }
 
-    public void sacar(double valor) {
+    public boolean sacar(double valor) {
         if(valor > 0) {
             saldo -= valor;
+            return true;
         }
+        return false;
     }
 
     @Override
