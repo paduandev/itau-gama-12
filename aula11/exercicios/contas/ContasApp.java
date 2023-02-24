@@ -1,20 +1,17 @@
 package exercicios.contas;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
-import exercicios.contas.modelo.Conta;
-import exercicios.contas.modelo.ContaCorrente;
-import exercicios.contas.modelo.ContaEspecial;
-import exercicios.contas.modelo.ContaPoupanca;
+import exercicios.contas.dados.GerenciaContas;
 
 public class ContasApp {
     public static void main(String[] args) {
-        ArrayList<Conta> listaDeContas = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         int opcao = 0;
         int numeroConta;
         double limite, valor;
+
+        GerenciaContas contas = new GerenciaContas();
 
         while (opcao != 7) {
             System.out.println("1- Nova Conta Corrente");
@@ -31,51 +28,34 @@ public class ContasApp {
                 case 1:
                     System.out.println("Informe o número da conta");
                     numeroConta = scanner.nextInt();
-                    // ContaCorrente cc = new ContaCorrente(numeroConta);
-                    listaDeContas.add(new ContaCorrente(numeroConta));
+                    contas.novaContaCorrente(numeroConta);                    
                     break;
                 case 2:
                     System.out.println("Informe o número da conta");
                     numeroConta = scanner.nextInt();
-                    listaDeContas.add(new ContaPoupanca(numeroConta));
+                    contas.novaContaPoupanca(numeroConta);
                     break;
                 case 3:
                     System.out.println("Informe o número da conta");
                     numeroConta = scanner.nextInt();
                     System.out.println("Informe o valor do limite:");
                     limite = scanner.nextDouble();
-                    listaDeContas.add(new ContaEspecial(numeroConta, limite));
+                    contas.novaContaEspecial(numeroConta, limite);
                     break;
                 case 4:
                     System.out.println("Informe o número da conta");
                     numeroConta = scanner.nextInt();
-                    // Para cada conta da ListaDeContas
-                    for (Conta conta : listaDeContas) {
-                        // Verifique se esta conta tem o número que estamos procurando
-                        if (conta.getNumero() == numeroConta) {
-                            System.out.println(conta);
-                            break; // quando achou, interrompe o for
-                        }
-                    }
+                    System.out.println(contas.consultarSaldo(numeroConta));
                     break;
                 case 5:
                     System.out.println("Informe o número da conta");
                     numeroConta = scanner.nextInt();
                     System.out.println("Qual o valor do depósito: ");
                     valor = scanner.nextDouble();
-                    // Para cada conta da ListaDeContas
-                    for (Conta conta : listaDeContas) {
-                        // Verifique se esta conta tem o número que estamos procurando
-                        if (conta.getNumero() == numeroConta) {
-                            // tenta fazer o depósito
-                            if (conta.depositar(valor)) { // se o depósito foi feito
-                                System.out.println("Deposíto realizado");
-                                System.out.println(conta);
-                            } else { // se deu erro no depósito
-                                System.out.println("Falha ao depositar.");
-                            }
-                            break; // quando achou, interrompe o for
-                        }
+                    if (contas.depositar(numeroConta, valor)) { // se o depósito foi feito
+                        System.out.println("Sucesso");
+                    } else { // se deu erro no depósito
+                        System.out.println("Falha ao depositar.");
                     }
                     break;
                 case 6:
@@ -83,19 +63,10 @@ public class ContasApp {
                     numeroConta = scanner.nextInt();
                     System.out.println("Qual o valor do saque: ");
                     valor = scanner.nextDouble();
-                    // Para cada conta da ListaDeContas
-                    for (Conta conta : listaDeContas) {
-                        // Verifique se esta conta tem o número que estamos procurando
-                        if (conta.getNumero() == numeroConta) {
-                            // tenta fazer o depósito
-                            if (conta.sacar(valor)) { // se o saque foi feito
-                                System.out.println("Saque realizado");
-                                System.out.println(conta);
-                            } else { // se deu erro no saque
-                                System.out.println("Falha ao sacar.");
-                            }
-                            break; // quando achou, interrompe o for
-                        }
+                    if (contas.sacar(numeroConta, valor)) { // se o depósito foi feito
+                        System.out.println("Sucesso");
+                    } else { // se deu erro no depósito
+                        System.out.println("Falha ao sacar.");
                     }
                     break;
                 case 7:
