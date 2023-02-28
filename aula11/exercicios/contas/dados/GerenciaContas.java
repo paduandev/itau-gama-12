@@ -2,6 +2,7 @@ package exercicios.contas.dados;
 
 import java.util.HashMap;
 
+import exercicios.contas.excecao.ContaInexistenteException;
 import exercicios.contas.modelo.Conta;
 import exercicios.contas.modelo.ContaCorrente;
 import exercicios.contas.modelo.ContaEspecial;
@@ -26,27 +27,27 @@ public class GerenciaContas {
         listaDeContas.put(numeroConta, new ContaEspecial(numeroConta, limite));
     }
 
-    public String consultarSaldo(int numeroConta) {
+    public String consultarSaldo(int numeroConta) throws ContaInexistenteException {
         // busca a conta desejada
         Conta conta = listaDeContas.get(numeroConta);
-        if(conta == null) {
-            return "Conta não encontrada";
+        if (conta == null) {
+            throw new ContaInexistenteException("Conta não encontrada.");
         }
         return conta.toString();
     }
 
-    public boolean depositar(int numeroConta, double valor) {
+    public boolean depositar(int numeroConta, double valor) throws ContaInexistenteException {
         Conta conta = listaDeContas.get(numeroConta);
-        if(conta == null) {
-            return false;
+        if (conta == null) {
+            throw new ContaInexistenteException("Conta não encontrada.");
         }
         return conta.depositar(valor);
     }
 
-    public boolean sacar(int numeroConta, double valor) {
+    public boolean sacar(int numeroConta, double valor) throws ContaInexistenteException {
         Conta conta = listaDeContas.get(numeroConta);
-        if(conta == null) {
-            return false;
+        if (conta == null) {
+            throw new ContaInexistenteException("Conta não encontrada.");
         }
         return conta.sacar(valor);
     }

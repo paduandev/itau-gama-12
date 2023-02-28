@@ -3,6 +3,7 @@ package exercicios.contas;
 import java.util.Scanner;
 
 import exercicios.contas.dados.GerenciaContas;
+import exercicios.contas.excecao.ContaInexistenteException;
 import exercicios.contas.excecao.ValorInvalidoException;
 import exercicios.contas.modelo.ContaPoupanca;
 
@@ -54,17 +55,23 @@ public class ContasApp {
                 case 4:
                     System.out.println("Informe o número da conta");
                     numeroConta = scanner.nextInt();
-                    System.out.println(contas.consultarSaldo(numeroConta));
+                    try {
+                        System.out.println(contas.consultarSaldo(numeroConta));
+                    } catch (ContaInexistenteException e) {
+                        System.out.println("Erro: " + e.getMessage());
+                    }
+                    
                     break;
                 case 5:
                     System.out.println("Informe o número da conta");
                     numeroConta = scanner.nextInt();
                     System.out.println("Qual o valor do depósito: ");
                     valor = scanner.nextDouble();
-                    if (contas.depositar(numeroConta, valor)) { // se o depósito foi feito
+                    try {
+                        contas.depositar(numeroConta, valor);
                         System.out.println("Sucesso");
-                    } else { // se deu erro no depósito
-                        System.out.println("Falha ao depositar.");
+                    } catch (ContaInexistenteException e) {
+                        System.out.println("Erro: " + e.getMessage());
                     }
                     break;
                 case 6:
@@ -72,10 +79,11 @@ public class ContasApp {
                     numeroConta = scanner.nextInt();
                     System.out.println("Qual o valor do saque: ");
                     valor = scanner.nextDouble();
-                    if (contas.sacar(numeroConta, valor)) { // se o depósito foi feito
+                    try {
+                        contas.sacar(numeroConta, valor);
                         System.out.println("Sucesso");
-                    } else { // se deu erro no depósito
-                        System.out.println("Falha ao sacar.");
+                    } catch (ContaInexistenteException e) {
+                        System.out.println("Erro: " + e.getMessage());
                     }
                     break;
                 case 7:
