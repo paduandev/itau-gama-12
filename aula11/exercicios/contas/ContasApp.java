@@ -3,6 +3,8 @@ package exercicios.contas;
 import java.util.Scanner;
 
 import exercicios.contas.dados.GerenciaContas;
+import exercicios.contas.excecao.ValorInvalidoException;
+import exercicios.contas.modelo.ContaPoupanca;
 
 public class ContasApp {
     public static void main(String[] args) {
@@ -12,6 +14,13 @@ public class ContasApp {
         double limite, valor;
 
         GerenciaContas contas = new GerenciaContas();
+
+        // demostração da ocorrência d euma exceção personalizada
+        try {
+            ContaPoupanca.setTaxaSaque(-0.1);
+        } catch (ValorInvalidoException e) {
+            System.out.println("Erro: " + e.getMessage());      
+        }
 
         while (opcao != 7) {
             System.out.println("1- Nova Conta Corrente");

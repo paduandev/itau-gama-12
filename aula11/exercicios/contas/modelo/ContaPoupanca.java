@@ -1,5 +1,7 @@
 package exercicios.contas.modelo;
 
+import exercicios.contas.excecao.ValorInvalidoException;
+
 public class ContaPoupanca extends Conta {
     private static double taxa_saque = 0.01;
 
@@ -7,10 +9,11 @@ public class ContaPoupanca extends Conta {
         super(numero);
     }
 
-    public static void setTaxaSaque(double novaTaxa) {
-        if(novaTaxa > 0) {
-            taxa_saque = novaTaxa;
+    public static void setTaxaSaque(double novaTaxa) throws ValorInvalidoException {
+        if(novaTaxa < 0) {
+            throw new ValorInvalidoException("A taxa deve ser um valor positivo.");
         }
+        taxa_saque = novaTaxa;
     }
 
     @Override
