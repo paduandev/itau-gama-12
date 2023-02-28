@@ -1,6 +1,6 @@
 package exercicios.contas.dados;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import exercicios.contas.modelo.Conta;
 import exercicios.contas.modelo.ContaCorrente;
@@ -8,57 +8,47 @@ import exercicios.contas.modelo.ContaEspecial;
 import exercicios.contas.modelo.ContaPoupanca;
 
 public class GerenciaContas {
-    private ArrayList<Conta> listaDeContas;
+    private HashMap<Integer, Conta> listaDeContas;
 
     public GerenciaContas() {
-        listaDeContas = new ArrayList<>();
+        listaDeContas = new HashMap<>();
     }
 
     public void novaContaCorrente(int numeroConta) {
-        listaDeContas.add(new ContaCorrente(numeroConta));
+        listaDeContas.put(numeroConta, new ContaCorrente(numeroConta));
     }
 
     public void novaContaPoupanca(int numeroConta) {
-        listaDeContas.add(new ContaPoupanca(numeroConta));
+        listaDeContas.put(numeroConta, new ContaPoupanca(numeroConta));
     }
 
     public void novaContaEspecial(int numeroConta, double limite) {
-        listaDeContas.add(new ContaEspecial(numeroConta, limite));
+        listaDeContas.put(numeroConta, new ContaEspecial(numeroConta, limite));
     }
 
     public String consultarSaldo(int numeroConta) {
-        // Para cada conta da ListaDeContas
-        for (Conta conta : listaDeContas) {
-            // Verifique se esta conta tem o número que estamos procurando
-            if (conta.getNumero() == numeroConta) {
-                return conta.toString();
-            }
+        // busca a conta desejada
+        Conta conta = listaDeContas.get(numeroConta);
+        if(conta == null) {
+            return "Conta não encontrada";
         }
-        return "Conta não encontrada";
+        return conta.toString();
     }
 
     public boolean depositar(int numeroConta, double valor) {
-        // Para cada conta da ListaDeContas
-        for (Conta conta : listaDeContas) {
-            // Verifique se esta conta tem o número que estamos procurando
-            if (conta.getNumero() == numeroConta) {
-                // tenta fazer o depósito
-                return conta.depositar(valor);
-            }
+        Conta conta = listaDeContas.get(numeroConta);
+        if(conta == null) {
+            return false;
         }
-        return false; // não achou a conta
+        return conta.depositar(valor);
     }
 
     public boolean sacar(int numeroConta, double valor) {
-        // Para cada conta da ListaDeContas
-        for (Conta conta : listaDeContas) {
-            // Verifique se esta conta tem o número que estamos procurando
-            if (conta.getNumero() == numeroConta) {
-                // tenta fazer o depósito
-                return conta.sacar(valor);
-            }
+        Conta conta = listaDeContas.get(numeroConta);
+        if(conta == null) {
+            return false;
         }
-        return false; // não achou a conta
+        return conta.sacar(valor);
     }
 
 }
