@@ -5,8 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,4 +51,36 @@ public class ProfessorController {
         return ResponseEntity.notFound().build(); // não há nenhum professor para retornar
     }
 
+    @PostMapping // O método da requisição será agora um POST
+    // Os dados da requisição serão enviado no corpo da requisição (requestBody)
+    public ResponseEntity<Professor> saveProfessor(@RequestBody Professor novoProfessor) {
+        Professor professor = repo.save(novoProfessor);
+        
+        return ResponseEntity.ok(professor);
+    }
+
+    @PutMapping("/{codigo}") // O método da requisição indica uma atualização do objeto
+    public ResponseEntity<Professor> updateProfessor(@PathVariable Long codigo, @RequestBody Professor professor) {
+        // valida se o código foi enviado
+        if(codigo != null) {
+            professor.setCodigo(codigo); // ajusta o código do objeto
+            Professor professorAtualizado = repo.save(professor); // atualiza os dados no BD
+            return ResponseEntity.ok(professorAtualizado); // retorna os dados atualizados
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/{codigo}") // Delete indica que vamos apagar uma entidade
+    public ResponseEntity<Void> deleteProfessor(@PathVariable Long codigo) {
+        Optional<Professor> optional = repo.findById(codigo);
+
+        // verifica se o professor com este código existe no BD
+        if(optional.isPresent()) {
+            // apaga a patir do Id (Chave Primária).
+            repo.deleteById(codigo);
+            return ResponseEntity.ok().build(); // retorna sucesso
+        }
+
+        return ResponseEntity.notFound().build(); // retorna não encontrado
+    }
 }
