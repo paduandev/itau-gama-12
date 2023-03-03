@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,4 +32,9 @@ public class Veiculo {
     private String modelo;
     
     private int anoFabricacao;
+
+    @ManyToOne
+    @JoinColumn(name = "id_proprietario") // cria uma coluna de relacionemnto na tabela 
+    @JsonIgnoreProperties("veiculos") // quando buscar os dados do proprietário, ignore os dados dos veículos
+    private Proprietario proprietario;
 }
