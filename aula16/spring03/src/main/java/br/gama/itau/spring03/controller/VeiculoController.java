@@ -53,11 +53,12 @@ public class VeiculoController {
 
     @PostMapping
     public ResponseEntity<Veiculo> newVeiculo(@RequestBody Veiculo novoVeiculo) {
-        // ao criar um novo veículo, não pode ter a chave primária
-        if(novoVeiculo.getId() > 0) {
+        Veiculo veiculoInserido = service.newVeiculo(novoVeiculo);
+        
+        if(veiculoInserido == null) {
             return ResponseEntity.badRequest().build();
         }
-        Veiculo veiculoInserido = repo.save(novoVeiculo);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(veiculoInserido); // cód http 201 = inserido com sucesso
     }
 

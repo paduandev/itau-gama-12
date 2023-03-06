@@ -41,4 +41,13 @@ public class VeiculoService {
 
         return listaDTO;
     }
+
+    public Veiculo newVeiculo(Veiculo novoVeiculo) {
+        // ao criar um novo veículo, não pode ter a chave primária
+        if(novoVeiculo.getId() > 0) {
+            return null;
+        }
+        Veiculo veiculoInserido = repo.save(novoVeiculo);
+        return veiculoInserido;
+    }
 }
