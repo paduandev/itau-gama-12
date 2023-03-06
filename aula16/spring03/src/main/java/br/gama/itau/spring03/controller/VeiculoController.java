@@ -91,4 +91,12 @@ public class VeiculoController {
         return ResponseEntity.notFound().build();        
     }
 
+    @GetMapping("/placa/{placa}")
+    public ResponseEntity<VeiculoDTO> getByPlaca(@PathVariable String placa) {
+
+        Veiculo veiculo = service.getByPlaca(placa);
+        
+        VeiculoDTO veiculoDTO = new VeiculoDTO(veiculo);
+        return ResponseEntity.ok(veiculoDTO);
+    }
 }

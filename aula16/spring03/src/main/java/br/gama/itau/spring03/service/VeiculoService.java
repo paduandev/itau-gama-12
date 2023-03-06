@@ -80,4 +80,9 @@ public class VeiculoService {
         repo.deleteById(id);
         return true;
     }
+
+    public Veiculo getByPlaca(String placa) {
+        return repo.findByPlaca(placa);
+    }
+
  }
