@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import br.gama.itau.spring03.dto.VeiculoDTO;
+import br.gama.itau.spring03.exception.NotFoundException;
 import br.gama.itau.spring03.model.Veiculo;
 import br.gama.itau.spring03.repository.VeiculoRepo;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class VeiculoService {
         Optional<Veiculo> veiculoOptional = repo.findById(id);
 
         if (veiculoOptional.isEmpty()) {
-            return null;
+            throw new NotFoundException("Veículo não encontrado");
         }
 
         Veiculo veiculoEncontrado = veiculoOptional.get();

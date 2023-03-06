@@ -37,13 +37,28 @@ public class VeiculoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<VeiculoDTO> getById(@PathVariable Long id) {
-        Veiculo veiculo = service.getById(id);
 
-        if(veiculo == null) {
-            return ResponseEntity.notFound().build();
-        }
+        Veiculo veiculo = service.getById(id);
         VeiculoDTO veiculoDTO = new VeiculoDTO(veiculo);
         return ResponseEntity.ok(veiculoDTO);
+
+
+        // try {
+        //     Veiculo veiculo = service.getById(id);
+        //     VeiculoDTO veiculoDTO = new VeiculoDTO(veiculo);
+        //     return ResponseEntity.ok(veiculoDTO);
+        // } catch (Exception e) {
+        //     return ResponseEntity.notFound().build();
+        // }
+
+
+        // Veiculo veiculo = service.getById(id);
+
+        // if(veiculo == null) {
+        //     return ResponseEntity.notFound().build();
+        // }
+        // VeiculoDTO veiculoDTO = new VeiculoDTO(veiculo);
+        // return ResponseEntity.ok(veiculoDTO);
     }
 
     @PostMapping
