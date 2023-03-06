@@ -31,8 +31,8 @@ public class VeiculoController {
     private VeiculoService service;
 
     @GetMapping
-    public ResponseEntity<List<Veiculo>> getAll() {
-        List<Veiculo> lista = (List<Veiculo>) repo.findAll();
+    public ResponseEntity<List<VeiculoDTO>> getAll() {
+        List<VeiculoDTO> lista = service.getAll();
 
         if(lista == null || lista.size() == 0) {
             return ResponseEntity.notFound().build();
