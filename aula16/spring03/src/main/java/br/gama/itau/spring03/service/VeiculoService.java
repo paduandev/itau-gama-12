@@ -4,18 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gama.itau.spring03.dto.VeiculoDTO;
 import br.gama.itau.spring03.model.Veiculo;
 import br.gama.itau.spring03.repository.VeiculoRepo;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor // precisa gerar o construtor com os atributos obrigatórios
 public class VeiculoService {
 
-    @Autowired
-    private VeiculoRepo repo;
+    // Outras opções de injeção de dependência, sem usar Autowired
+
+    private final VeiculoRepo repo; // final, indica um atributo obrigatório para esta classe
+
+    // construtor pode ser usado quando não colocamos final no atributo
+    // public VeiculoService(VeiculoRepo repo) {
+    //     this.repo = repo;
+    // }
 
     public Veiculo getById(long id) {
         Optional<Veiculo> veiculoOptional = repo.findById(id);
@@ -50,4 +57,26 @@ public class VeiculoService {
         Veiculo veiculoInserido = repo.save(novoVeiculo);
         return veiculoInserido;
     }
-}
+
+    public Veiculo updateVeiculo(long id, Veiculo veiculo) {
+        Optional<Veiculo> veiculoOptional = repo.findById(id);
+
+        if(veiculoOptional.isEmpty()) {
+            return null;
+        }
+        veiculo.setId(id);
+        Veiculo veiculoAtualizado = repo.save(veiculo);
+        return veiculoAtualizado;
+    }
+
+    public boolean deleteVeiculo(long id) {
+        Optional<Veiculo> veiculoOptional = repo.findById(id);
+
+        if(veiculoOptional.isEmpty()) {
+            return false;
+        }
+        
+        repo.deleteById(id);
+        return true;
+    }
+ }

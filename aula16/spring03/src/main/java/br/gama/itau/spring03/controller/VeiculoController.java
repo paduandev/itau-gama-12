@@ -1,7 +1,6 @@
 package br.gama.itau.spring03.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,17 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.gama.itau.spring03.dto.VeiculoDTO;
 import br.gama.itau.spring03.model.Veiculo;
-import br.gama.itau.spring03.repository.VeiculoRepo;
 import br.gama.itau.spring03.service.VeiculoService;
 
 @RestController
 @RequestMapping("/veiculo")
 public class VeiculoController {
-    
-    @Autowired
-    private VeiculoRepo repo;
 
-    @Autowired
+    @Autowired  // injeção de dependência
     private VeiculoService service;
 
     @GetMapping
@@ -54,7 +49,7 @@ public class VeiculoController {
     @PostMapping
     public ResponseEntity<Veiculo> newVeiculo(@RequestBody Veiculo novoVeiculo) {
         Veiculo veiculoInserido = service.newVeiculo(novoVeiculo);
-        
+
         if(veiculoInserido == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -64,26 +59,21 @@ public class VeiculoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Veiculo> updateVeiculo(@PathVariable long id, @RequestBody Veiculo veiculo) {
-        Optional<Veiculo> veiculoOptional = repo.findById(id);
-
-        if(veiculoOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        Veiculo veiculoAtualizado = service.updateVeiculo(id, veiculo);
+        if(veiculoAtualizado == null) {
+            return ResponseEntity.badRequest().build();
         }
-        veiculo.setId(id);
-        Veiculo veiculoAtualizado = repo.save(veiculo);
         return ResponseEntity.ok(veiculoAtualizado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Veiculo> deleteById(@PathVariable Long id) {
-        Optional<Veiculo> veiculoOptional = repo.findById(id);
+        boolean apagado = service.deleteVeiculo(id);
 
-        if(veiculoOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        if(apagado) {
+            return ResponseEntity.noContent().build();
         }
-        
-        repo.deleteById(id);
-        return ResponseEntity.noContent().build(); // cód http 204 = retorno com sucesso sem contúdo no body(corpo)
+        return ResponseEntity.notFound().build();        
     }
 
 }
