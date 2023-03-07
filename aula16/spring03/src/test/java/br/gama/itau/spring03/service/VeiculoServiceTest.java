@@ -1,7 +1,10 @@
 package br.gama.itau.spring03.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import br.gama.itau.spring03.exception.NotFoundException;
 import br.gama.itau.spring03.model.Veiculo;
 import br.gama.itau.spring03.repository.VeiculoRepo;
 import br.gama.itau.spring03.util.GenerateVeiculo;
@@ -32,7 +36,7 @@ public class VeiculoServiceTest {
     public void newVeiculo_returnNewVeiculo_whenVeiculoValido() {
         // preparação
         BDDMockito.when(repo.save(ArgumentMatchers.any(Veiculo.class)))
-            .thenReturn(GenerateVeiculo.veiculoValido());
+                .thenReturn(GenerateVeiculo.veiculoValido());
 
         Veiculo novoVeiculo = GenerateVeiculo.novoVeiculoToSave();
 
@@ -46,6 +50,49 @@ public class VeiculoServiceTest {
 
         // verifica se o método save foi chamado 1 vez
         verify(repo, Mockito.times(1)).save(novoVeiculo);
+    }
+
+    @Test
+    public void newVeiculo_returnNull_whenVeiculoInvalido() {
+        // Não precisa de Mock pois o método save do repo não será chamado
+        // preparação
+        Veiculo veiculoValido = GenerateVeiculo.veiculoValido();
+
+        // ação
+        Veiculo veiculoRetornado = service.newVeiculo(veiculoValido);
+
+        // verificação
+        assertThat(veiculoRetornado).isNull();
+
+        // verifica que o método save não foi chamado
+        verify(repo, Mockito.times(0)).save(veiculoValido);
+    }
+
+    @Test
+    public void getById_returnVeiculo_whenIdExist() {
+        BDDMockito.when(repo.findById(ArgumentMatchers.any(Long.class)))
+                .thenReturn(Optional.of(GenerateVeiculo.veiculoValido()));
+
+        Veiculo veiculoEncontrado = service.getById(1L);
+
+        assertThat(veiculoEncontrado)
+                .isNotNull();
+        assertThat(veiculoEncontrado.getId())
+                .isGreaterThan(0);
+        assertThat(veiculoEncontrado.getPlaca())
+                .isEqualTo(GenerateVeiculo.veiculoValido().getPlaca())
+                .isNotEmpty();
+    }
+
+    @Test
+    public void getById_throwException_whenIdNotExist() {
+        Veiculo novoVeiculo = GenerateVeiculo.novoVeiculoToSave();
+
+        // verifica se uma exception do tipo NotFoundException é lançada
+        // () -> { } é uma chamada de método anônimo
+        assertThrows(NotFoundException.class, () -> {
+            service.getById(novoVeiculo.getId());
+        });
     }
 
 }
