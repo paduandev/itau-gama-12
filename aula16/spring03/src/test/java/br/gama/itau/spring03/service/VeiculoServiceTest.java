@@ -95,4 +95,27 @@ public class VeiculoServiceTest {
         });
     }
 
+    @Test
+    public void updateVeiculo_returnUpdatedVeiculo_whenVeiculoValido() {
+        // preparação
+        BDDMockito.when(repo.findById(ArgumentMatchers.any(Long.class)))
+                .thenReturn(Optional.of(GenerateVeiculo.veiculoValido()));
+
+        BDDMockito.when(repo.save(ArgumentMatchers.any(Veiculo.class)))
+                .thenReturn(GenerateVeiculo.veiculoValido2());
+
+        Veiculo veiculoParaAtualizar = GenerateVeiculo.veiculoValido2();
+
+        // ação
+        Veiculo veiculoAtualizado = service.updateVeiculo(1L, veiculoParaAtualizar);
+
+        // verificação
+        assertThat(veiculoAtualizado).isNotNull();
+        assertThat(veiculoAtualizado.getId()).isEqualTo(1L);
+        assertThat(veiculoAtualizado.getPlaca()).isEqualTo(veiculoParaAtualizar.getPlaca());
+
+        // verifica se o método save foi chamado 1 vez
+        verify(repo, Mockito.times(1)).save(veiculoParaAtualizar);
+    }
+
 }

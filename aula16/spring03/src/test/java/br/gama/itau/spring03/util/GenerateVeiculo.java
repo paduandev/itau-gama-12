@@ -19,4 +19,12 @@ public class GenerateVeiculo {
                 .build();
     }
 
+    public static Veiculo veiculoValido2() {
+        return Veiculo.builder()
+                .id(1)
+                .modelo("modelo v2")
+                .placa("ABC1234")
+                .build();
+    }
+
 }
