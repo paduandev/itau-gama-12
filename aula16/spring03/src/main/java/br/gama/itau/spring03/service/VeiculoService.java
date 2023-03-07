@@ -85,4 +85,8 @@ public class VeiculoService {
         return repo.findByPlaca(placa);
     }
 
+    public List<Veiculo> getGreaterThanAnoFabricacao(int anoFabricacao) {
+        return repo.findByAnoFabricacaoGreaterThanEqual(anoFabricacao);
+    }
+
  }
