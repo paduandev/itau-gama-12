@@ -89,4 +89,7 @@ public class VeiculoService {
         return repo.findByAnoFabricacaoGreaterThanEqual(anoFabricacao);
     }
 
- }
+    public List<Veiculo> getAllOrderMarca() {
+        return repo.getAllOrderMarca();
+    }
+  }

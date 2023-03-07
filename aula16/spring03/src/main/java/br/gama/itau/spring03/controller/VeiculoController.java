@@ -104,4 +104,9 @@ public class VeiculoController {
     public ResponseEntity<List<Veiculo>> getGreaterThanAnoFabricacao(@PathVariable int ano) {
         return ResponseEntity.ok(service.getGreaterThanAnoFabricacao(ano));
     }
+
+    @GetMapping("/marca") 
+    public ResponseEntity<List<Veiculo>> getAllOrderMarca() {
+        return ResponseEntity.ok(service.getAllOrderMarca());
+    }
 }
