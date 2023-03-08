@@ -1,9 +1,16 @@
 package br.gama.itau.spring03.controller;
 
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,14 +18,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.hamcrest.CoreMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import br.gama.itau.spring03.dto.VeiculoDTO;
 import br.gama.itau.spring03.model.Veiculo;
@@ -70,4 +71,22 @@ public class VeiculoControllerTest {
         resposta.andExpect(status().isOk())
                 .andExpect(jsonPath("$.placa", CoreMatchers.is(veiculo.getPlaca())));
     }
+
+    @Test
+    public void newVeiculo_returnVeiculoInserido_whenDadosValidos() throws Exception {
+        Veiculo novoVeiculo = GenerateVeiculo.novoVeiculoToSave();
+        Veiculo veiculoValido = GenerateVeiculo.veiculoValido();
+
+        BDDMockito.when(service.newVeiculo(ArgumentMatchers.any(Veiculo.class)))
+                    .thenReturn(veiculoValido);
+
+        ResultActions resposta = mockMvc.perform(post("/veiculo")
+                    .content(objectMapper.writeValueAsString(novoVeiculo))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+        resposta.andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", CoreMatchers.is(1)))
+                .andExpect(jsonPath("$.placa", CoreMatchers.is(novoVeiculo.getPlaca())));
+    }
+
 }
