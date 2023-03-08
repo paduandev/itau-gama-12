@@ -1,9 +1,11 @@
 package br.gama.itau.spring03.controller;
 
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+// import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.gama.itau.spring03.dto.VeiculoDTO;
+import br.gama.itau.spring03.exception.NotFoundException;
 import br.gama.itau.spring03.model.Veiculo;
 import br.gama.itau.spring03.service.VeiculoService;
 import br.gama.itau.spring03.util.GenerateVeiculo;
@@ -70,6 +74,26 @@ public class VeiculoControllerTest {
 
         resposta.andExpect(status().isOk())
                 .andExpect(jsonPath("$.placa", CoreMatchers.is(veiculo.getPlaca())));
+    }
+
+    @Test
+    public void getById_returnNotFound_whenIdNotExist() throws Exception {
+        final long ID_NOT_EXIST = 0;
+
+        BDDMockito.given(service.getById(anyLong()))
+                    .willThrow(new NotFoundException("Veículo não encontrado"));
+
+        // se a exceção fosse devolvida para o front, deveria ser usado esta construção
+        
+        // assertThatCode( () -> {
+            // ResultActions resposta = mockMvc.perform(get("/veiculo/{id}", ID_NOT_EXIST)
+            //     .contentType(MediaType.APPLICATION_JSON));
+        // }).hasCause(new NotFoundException("Veículo não encontrado")) ;
+
+        ResultActions resposta = mockMvc.perform(get("/veiculo/{id}", ID_NOT_EXIST)
+            .contentType(MediaType.APPLICATION_JSON));
+
+        resposta.andExpect(status().isNotFound());
     }
 
     @Test
