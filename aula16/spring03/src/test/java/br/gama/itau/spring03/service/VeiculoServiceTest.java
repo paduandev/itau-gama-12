@@ -98,6 +98,10 @@ public class VeiculoServiceTest {
     @Test
     public void updateVeiculo_returnUpdatedVeiculo_whenVeiculoValido() {
         // preparação
+        // BDDMOckito está nos ajudando a simular, como um duplê, o que a classe
+        // da dependência deveria fazer.
+        // Neste exemplo, quando o método findById for chamado, o comportamento simulado
+        // retorna os dados de um veículo válido que preparamos para o dublê (simulação)
         BDDMockito.when(repo.findById(ArgumentMatchers.any(Long.class)))
                 .thenReturn(Optional.of(GenerateVeiculo.veiculoValido()));
 
