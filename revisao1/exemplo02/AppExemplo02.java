@@ -1,6 +1,7 @@
 package exemplo02;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class AppExemplo02 {
     public static void main(String[] args) {
@@ -40,7 +41,7 @@ public class AppExemplo02 {
         vetorPessoas[1] = new Pessoa("Bia");
        
         vetorPessoas[0] = null;
-        
+
         for (int i = 0; i < vetorPessoas.length; i++) {
             System.out.print(vetorPessoas[i] + " ");
         }
@@ -58,5 +59,13 @@ public class AppExemplo02 {
             System.out.print(pessoa + " ");
         }
 
+        System.out.println();
+
+        LinkedList<Pessoa> listaPessoas = new LinkedList<>();
+
+        Pessoa p = new Pessoa("Gilberto");
+        listaPessoas.add(p);
+
+        System.out.println(listaPessoas);
     }
 }
