@@ -2,6 +2,13 @@ package exercicio02;
 
 import java.util.ArrayList;
 
+import exercicio02.midias.Impressora;
+import exercicio02.midias.Tela;
+import exercicio02.modelos.Circulo;
+import exercicio02.modelos.FiguraGeometrica;
+import exercicio02.modelos.Quadrado;
+import exercicio02.modelos.Retangulo;
+
 public class AppFigura {
     public static void main(String[] args) {
         Quadrado q = new Quadrado(0, 0, 5);
@@ -21,11 +28,20 @@ public class AppFigura {
         // System.out.println("Area: " + figuras.get(i).area());
         // }
 
+        // for (FiguraGeometrica fg : figuras) {
+        // System.out.println(fg);
+        // System.out.println("Area: " + fg.area());
+        // }
+
+        Impressora imp = new Impressora();
         for (FiguraGeometrica fg : figuras) {
-            System.out.println(fg);
-            System.out.println("Area: " + fg.area());
+            fg.mostrarDados(imp);
         }
 
+        Tela tela = new Tela();
+        for (FiguraGeometrica fg : figuras) {
+            fg.mostrarDados(tela);
+        }
 
     }
 }

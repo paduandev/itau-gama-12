@@ -1,4 +1,6 @@
-package exercicio02;
+package exercicio02.modelos;
+
+import exercicio02.midias.Midia;
 
 // classe abstrata não instancia objeto
 public abstract class FiguraGeometrica {
@@ -27,7 +29,12 @@ public abstract class FiguraGeometrica {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + " [x=" + x + ", y=" + y + "]";
+        return this.getClass().getSimpleName() + " [x=" + x + ", y=" + y + "]" + " area: " + area();
+    }
+
+    // inversão de controle
+    public void mostrarDados(Midia midia) {
+        midia.exibir(this.toString());
     }
 
     // método abstrato DEVE obrigatoriamente ser implementado nas classes filho

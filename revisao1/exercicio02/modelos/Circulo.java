@@ -1,4 +1,4 @@
-package exercicio02;
+package exercicio02.modelos;
 
 public class Circulo extends FiguraGeometrica {
     private static final double PI = 3.1415;

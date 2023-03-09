@@ -1,4 +1,4 @@
-package exercicio02;
+package exercicio02.modelos;
 
 public class Retangulo extends Quadrado {
     private double lado2;

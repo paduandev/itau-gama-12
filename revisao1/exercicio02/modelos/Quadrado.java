@@ -1,4 +1,4 @@
-package exercicio02;
+package exercicio02.modelos;
 
 public class Quadrado extends FiguraGeometrica {
     private double lado;

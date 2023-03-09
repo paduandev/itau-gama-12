@@ -1,4 +1,4 @@
-package exercicio02;
+package exercicio02.modelos;
 
 public class Triangulo extends FiguraGeometrica {
     private double base;
